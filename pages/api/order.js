@@ -20,6 +20,10 @@ const symbols = {
 export default (req, res) => {
     var symbol = req.body
     console.log(req.body)
+    console.log(symbol['Price'])
+    console.log(symbol['Stop'])
+    console.log(symbol['Side'])
+    console.log(symbol['Symbol'])
     res.status(200).json({res: "New order: "});
     return
     symbol = {
