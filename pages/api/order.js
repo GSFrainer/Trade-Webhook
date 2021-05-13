@@ -20,18 +20,17 @@ const symbols = {
 export default (req, res) => {
     var symbol = req.body
     console.log(req.body)
+    symbol.Side = symbol.Side.toLowerCase()
     console.log(symbol['Price'])
     console.log(symbol['Stop'])
-    symbol.Side = symbol.Side.toLowerCase()
+    symbol.Stop = symbol.Stop + (symbol.Side=='buy'?(symbol.Low - symbol.High):(symbol.High - symbol.Low))
+    console.log(symbol.Stop)
     console.log(symbol['Side'])
     console.log(symbol.Symbol)
+
+
+
     res.status(200).json({res: "New order: "});
-    return
-    symbol = {
-        "Symbol": "BTC/USDT",
-        "Side": "buy",
-        "Stop": 40000.00
-    }
 
     binance.createOrder(symbol.Symbol, 'MARKET', symbol.Side, symbols[symbol.Symbol], undefined, {}).then(o=>{
         binance.createOrder(symbol.Symbol, 'TRAILING_STOP_MARKET', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], undefined, {'callbackRate': 1.0, "reduceOnly": true}).then(t => {
