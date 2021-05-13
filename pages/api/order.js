@@ -32,7 +32,6 @@ export default (req, res) => {
     }
     // console.log(symbol.Stop)
     // console.log(symbol['Side'])
-    console.log(symbol)
     
     
     // binance.fetchBalance().then(a=>res.status(200).json({res: a['info']['positions'].find(a=>(a['symbol'] == symbol.Symbol.replace('/','') && a['entryPrice'] != 0.0))}))
@@ -44,7 +43,7 @@ export default (req, res) => {
     // })
     
     //binance.fetchOpenOrders ("BTC/USDT").then(a=>console.log(a))
-    return res.status(200).json({res: "done"})
+    // return res.status(200).json({res: "New order"})
 
     binance.createOrder(symbol.Symbol, 'MARKET', symbol.Side, symbols[symbol.Symbol], undefined, {}).then(o=>{
         binance.createOrder(symbol.Symbol, 'TRAILING_STOP_MARKET', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], undefined, {'callbackRate': 1.0, "reduceOnly": true}).then(t => {
