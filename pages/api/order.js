@@ -23,7 +23,7 @@ export default (req, res) => {
     symbol.Side = symbol.Side.toLowerCase()
     console.log(symbol['Price'])
     console.log(symbol['Stop'])
-    symbol.Stop = symbol.Stop + (symbol.Side=='buy'?(symbol.Low - symbol.High):(symbol.High - symbol.Low))
+    symbol.Stop = parseFloat(symbol.Stop) + (symbol.Side=='buy'?(parseFloat(symbol.Low) - parseFloat(symbol.High)):(parseFloat(symbol.High) - parseFloat(symbol.Low)))
     console.log(symbol.Stop)
     console.log(symbol['Side'])
     console.log(symbol.Symbol)
