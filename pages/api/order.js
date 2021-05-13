@@ -19,7 +19,7 @@ const symbols = {
 
 export default (req, res) => {
     var symbol = req.body
-    console.log(JSON.parse(symbol))
+    console.log(req.body)
     res.status(200).json({res: "New order: "});
     return
     symbol = {
