@@ -18,7 +18,7 @@ const symbols = {
 }
 
 export default (req, res)=>{
-    var symbol = req.query['symbol']
+    var symbol = req.body
     console.log(symbol)
 
     if(!(symbol in symbols)){
