@@ -19,7 +19,8 @@ const symbols = {
 
 export default (req, res)=>{
     var symbol = req.body
-    console.log(symbol)
+    console.log(symbol.Price)
+    console.log(JSON.parse('{ "Price": 0.12578, "Side": "BUY", "Symbol": "BTC/USDT" }'))
 
     if(!(symbol in symbols)){
         res.status(400).json({error:"Invalid symbol"});
