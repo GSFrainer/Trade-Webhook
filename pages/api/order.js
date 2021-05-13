@@ -19,25 +19,32 @@ const symbols = {
 
 export default (req, res) => {
     var symbol = req.body
-    symbol = JSON.parse('{  "Price": 0.11821,  "Stop": 0.11794,  "High": 0.11821,  "Low": 0.11794,  "Side": "BUY",  "Symbol": "BTC/USDT"}')
-    console.log(req.body)
+    // symbol = JSON.parse('{  "Price": 0.11821,  "Stop": 0.11794,  "High": 0.11821,  "Low": 0.11794,  "Side": "BUY",  "Symbol": "BTC/USDT"}')
+    // console.log(req.body)
     symbol.Side = symbol.Side.toLowerCase()
-    console.log(symbol['Price'])
-    console.log(symbol['Stop'])
+    // console.log(symbol['Price'])
+    // console.log(symbol['Stop'])
     if(Number.isInteger(symbol['High']) && Number.isInteger(symbol['Low'])){
         symbol.Stop = parseInt(symbol.Stop) + (symbol.Side=='buy'?(parseInt(symbol.Low) - parseInt(symbol.High)):(parseInt(symbol.High) - parseInt(symbol.Low)))
     }else{
         symbol.Stop = parseFloat(symbol.Stop) + (symbol.Side=='buy'?(parseFloat(symbol.Low) - parseFloat(symbol.High)):(parseFloat(symbol.High) - parseFloat(symbol.Low)))
         symbol.Stop = symbol.Stop.toFixed((""+symbol.High).split('.')[1].length)
     }
-    console.log(symbol.Stop)
-    console.log(symbol['Side'])
+    // console.log(symbol.Stop)
+    // console.log(symbol['Side'])
     console.log(symbol.Symbol)
-
-
-
-    res.status(200).json({res: "New order: "});
-    return
+    
+    
+    // binance.fetchBalance().then(a=>res.status(200).json({res: a['info']['positions'].find(a=>(a['symbol'] == symbol.Symbol.replace('/','') && a['entryPrice'] != 0.0))}))
+    
+    
+    // binance.fetchBalance().then(a=>{
+    //     var position = a['info']['positions'].find(a=>(a['symbol'] == symbol.Symbol.replace('/','') && a['entryPrice'] != 0.0))
+    //     console.log(position)
+    // })
+    
+    //binance.fetchOpenOrders ("BTC/USDT").then(a=>console.log(a))
+    return res.status(200).json({res: "done"})
 
     binance.createOrder(symbol.Symbol, 'MARKET', symbol.Side, symbols[symbol.Symbol], undefined, {}).then(o=>{
         binance.createOrder(symbol.Symbol, 'TRAILING_STOP_MARKET', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], undefined, {'callbackRate': 1.0, "reduceOnly": true}).then(t => {
