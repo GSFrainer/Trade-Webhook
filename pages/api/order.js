@@ -32,7 +32,7 @@ export default (req, res) => {
     }
     // console.log(symbol.Stop)
     // console.log(symbol['Side'])
-    console.log(symbol.Symbol)
+    console.log(symbol)
     
     
     // binance.fetchBalance().then(a=>res.status(200).json({res: a['info']['positions'].find(a=>(a['symbol'] == symbol.Symbol.replace('/','') && a['entryPrice'] != 0.0))}))
