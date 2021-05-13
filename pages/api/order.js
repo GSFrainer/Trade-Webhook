@@ -46,7 +46,7 @@ export default (req, res) => {
     // return res.status(200).json({res: "New order"})
 
     binance.createOrder(symbol.Symbol, 'MARKET', symbol.Side, symbols[symbol.Symbol], undefined, {}).then(o=>{
-        binance.createOrder(symbol.Symbol, 'TRAILING_STOP_MARKET', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], undefined, {'callbackRate': 2.0, "reduceOnly": true}).then(t => {
+        binance.createOrder(symbol.Symbol, 'TRAILING_STOP_MARKET', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], undefined, {'callbackRate': 1.0, "reduceOnly": true}).then(t => {
             binance.createOrder(symbol.Symbol, 'STOP', (symbol.Side == "buy" ? "sell" : "buy"), symbols[symbol.Symbol], symbol.Stop * 2, {'stopPrice': symbol.Stop, "reduceOnly": true}).then(s => {
                 res.status(200).json({res: "New order: " + symbol.Symbol});
             }).catch(e => {
