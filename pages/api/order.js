@@ -23,7 +23,8 @@ export default (req, res) => {
     console.log(symbol['Price'])
     console.log(symbol['Stop'])
     console.log(symbol['Side'])
-    console.log(symbol['Symbol'])
+    symbol.Symbol = symbol.Symbol.toLoweCase()
+    console.log(symbol.Symbol)
     res.status(200).json({res: "New order: "});
     return
     symbol = {
