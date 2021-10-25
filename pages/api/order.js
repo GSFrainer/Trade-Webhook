@@ -33,12 +33,6 @@ export default (req, res) => {
             symbol.Quantity = symbols[symbol.Symbol]
         }
 
-        // -- Revert position side --
-        // var position = a['info']['positions'].find(a=>(a['symbol'] == symbol.Symbol.replace('/','') && a['entryPrice'] != 0.0))
-        // if(position != undefined){
-        //     symbol.Quantity = symbol.Quantity*2
-        // }
-
         binance.createOrder(symbol.Symbol, 'MARKET', symbol.Side, symbol.Quantity, undefined, {}).then(o=>{
             res.status(200).json({res: "New order: " + symbol.Symbol});
 
